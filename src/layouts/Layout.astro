@@ -1,0 +1,137 @@
+---
+interface Props {
+  title: string;
+}
+import { ViewTransitions } from "astro:transitions";
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	* {
+	  font-family:
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		Segoe UI,
+		Roboto,
+		Noto Sans,
+		Ubuntu,
+		Cantarell,
+		Helvetica Neue,
+		Oxygen,
+		Fira Sans,
+		Droid Sans,
+		sans-serif;
+	  box-sizing: border-box;
+	  min-width: 0;
+	}
+	html,
+	body {
+	  background: #1a1a1a;
+	  color-scheme: dark light;
+	  margin: 0;
+	  padding: 0;
+	  width: 100%;
+	  inset: 0;
+	  min-height: 100vh;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	}
+	h1,
+	h2,
+	h3,
+	h4 {
+	  text-wrap: balance;
+	}
+
+	p {
+	  text-wrap: pretty;
+	}
+	#detach-button-host {
+	  display: none !important;
+	}
+
+	.font-lexend {
+	  font-family: "Lexend", sans-serif;
+	}
+
+	@keyframes appear-left-fade {
+	  0% {
+		opacity: 0;
+		filter: blur(10px);
+		transform: translateX(-150vw);
+	  }
+	  25% {
+		opacity: 0;
+		filter: blur(5px);
+	  }
+	  50% {
+		opacity: 1;
+		filter: blur(0px);
+		transform: translateX(0);
+	  }
+	}
+
+	@keyframes appear-bottom-fade {
+	  0% {
+		opacity: 0;
+		transform: translateY(50vw);
+	  }
+	  25% {
+		opacity: 0;
+	  }
+	  50% {
+		opacity: 1;
+		transform: translateY(0);
+	  }
+	}
+
+	@keyframes fade-In {
+	  0% {
+		opacity: 0;
+	  }
+	  100% {
+		opacity: 1;
+	  }
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+	  html {
+		scroll-behavior: smooth;
+	  }
+	  .fade-in {
+		animation-name: fade-In;
+		animation-duration: 1s;
+	  }
+	  .scroll-transition-fade {
+		animation-name: appear-left-fade;
+		animation-duration: 1s;
+		animation-timeline: view();
+	  }
+	  .scroll-transition-bottom {
+		animation-name: appear-bottom-fade;
+		animation-duration: 1s;
+		animation-timeline: view();
+	  }
+	}
+	.shadow-majo-black {
+	  box-shadow: 3px 3px 0px 3px #000;
+	}
+  </style>
+</style>
