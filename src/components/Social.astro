@@ -1,0 +1,76 @@
+---
+import SocialLink from "./SocialLink.astro"
+import x from '/icons/X.svg?url';
+import Mastodon from '/icons/Mastodon.svg?url';
+import Bluesky from '/icons/Bluesky.svg?url';
+---
+
+
+
+
+
+<main class="w-full h-screen sm:min-h-[600px] p-2 md:p-12 flex flex-row justify-center items-center">
+<div class="w-full max-w-2xl min-h-[600px] rounded-xl bg-slate-800 flex flex-col p-8 gap-4 overflow-hidden animate-in">
+<h2 class="font-bold text-3xl text-center">Social</h2>
+<img src="/images/profile.jpg" alt="Logo" class="w-32 h-32 rounded-full mx-auto my-4" style="filter: drop-shadow(0 0 0.3rem rgb(103, 103, 103));">
+<button
+  id="share-btn"
+  aria-label="Copiar enlace de la página"
+  role="status"
+  class="mx-auto px-4 py-2 bg-slate-700 border-slate-600 border-2 rounded-xl hover:bg-slate-600 flex flex-row justify-center items-center gap-2 transition-all hover:scale-[1.02] active:scale-95"
+>
+  <img src="/icons/share.svg" alt="Compartir" class="w-5 h-5">
+  <span id="share-text">Compartir</span>
+</button>
+<SocialLink index={0} name="Twitter (X)" svg={x} link="https://x.com/TheZombrex"/>
+<SocialLink index={1} name="Mastodon (Gamedev)" svg={Mastodon} link="https://mastodon.gamedev.place/@TheZombrex"/>
+<SocialLink index={2} name="Mastodon (General)" svg={Mastodon} link="https://mastodon.social/@TheZombrex"/>
+<SocialLink index={3} name="Bluesky" svg={Bluesky} link="https://bsky.app/profile/thezombrex.bsky.social"/>
+</div>
+</main>
+
+<script>
+  const btn = document.getElementById('share-btn')
+  const text = document.getElementById('share-text')
+
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      btn.classList.add('bg-green-600/50')
+      text.textContent = '¡Enlace copiado!'
+      btn.setAttribute('aria-label', 'Enlace copiado')
+      btn.classList.add('pointer-events-none')
+      setTimeout(() => {
+        text.textContent = 'Compartir'
+        btn.classList.remove('bg-green-600/50')
+        btn.setAttribute('aria-label', 'Copiar enlace de la página')
+        btn.classList.remove('pointer-events-none')
+      }, 2000)
+    } catch (err) {
+      alert('No se pudo copiar el enlace')
+    }
+  })
+</script>
+
+
+
+
+
+<style>
+@keyframes animate-in {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.animate-in {
+  opacity: 0;
+  animation: animate-in 0.5s ease-out forwards;
+}
+</style>
